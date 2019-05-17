@@ -6,7 +6,6 @@ import java.util.*
 class MoneyUtil {
 
     companion object {
-        @JvmStatic
         fun convertIDRCurrencyFormat(amount: Double?, decimal: Int): String {
             val localeID = Locale("in", "ID")
             val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
