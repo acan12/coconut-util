@@ -6,24 +6,20 @@ import java.util.*
 class DateUtil {
 
     companion object {
-        @JvmStatic
-        fun convertToEpoch(date : Date) : Long? {
+        fun convertToEpoch(date: Date): Long {
             val cal = Calendar.getInstance()
             cal.timeZone = TimeZone.getTimeZone("UTC")
             cal.time = date
-            cal.set(Calendar.HOUR_OF_DAY, 0)            // set hour to midnight
-            cal.set(Calendar.MINUTE, 0)                 // set minute in hour
-            cal.set(Calendar.SECOND, 0)                 // set second in minute
-            cal.set(Calendar.MILLISECOND, 0)
-            return (cal.getTimeInMillis() / 1000) + 86400
+            return cal.timeInMillis
         }
 
-        @JvmStatic
         fun convertToDate(epoch: Long): Date {
-            return Date(epoch * 1000L)
+            val cal = Calendar.getInstance()
+            cal.timeZone = TimeZone.getTimeZone("UTC")
+            cal.timeInMillis = epoch
+            return cal.time
         }
 
-        @JvmStatic
         fun formatStringMonthBahasa(date: Date, pattern: String): String {
 
             val form = SimpleDateFormat(pattern)
@@ -38,5 +34,22 @@ class DateUtil {
 
             return dateString
         }
+
+        fun getPersonAge(date: Date): Int {
+
+            if (date == null) return 0
+
+            val calDob: Calendar = Calendar.getInstance()
+            val calNow: Calendar = Calendar.getInstance()
+            calDob.time = date
+            calNow.time = Date()
+
+            val difInMonths: Int = calNow.get(Calendar.MONTH) - calDob.get(Calendar.MONTH)
+            val age: Int = calNow.get(Calendar.YEAR) - calDob.get(Calendar.YEAR)
+
+            return if (difInMonths < 0) (age - 1) else age
+        }
+
+
     }
 }

@@ -6,10 +6,11 @@ import java.util.*
 class MoneyUtil {
 
     companion object {
-        fun convertIDRCurrencyFormat(amount: Double?, decimal: Int): String {
+        fun convertIDRCurrencyFormat(amount: Double?, digitDecimal: Int): String {
             val localeID = Locale("in", "ID")
             val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
-            formatRupiah.maximumFractionDigits = decimal
+            formatRupiah.maximumFractionDigits = digitDecimal
+
             return formatRupiah.format(amount).replace("Rp", "Rp ")
         }
     }
